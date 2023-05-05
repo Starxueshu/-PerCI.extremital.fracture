@@ -37,10 +37,10 @@ if st.button("Submit"):
     prediction = ensemble_clf.predict_proba(x)[0, 1]
         # Output prediction
     st.text(f"Probability of developing PerCI: {'{:.2%}'.format(round(prediction, 5))}")
-    if prediction < 0.121:
+    if prediction < 0.100:
         st.text(f"Risk group: low-risk group")
     else:
         st.text(f"Risk group: High-risk group")
 
 st.subheader('Introduction')
-st.markdown('The model was developed based on the ensembling technique with the Baier score of 0.098 and AUC of 0.797 (95%CI: 0.722-0.873). According to the best cut-off value, patients with a predicted risk of less than 0.121 were categorized into the low-risk group, while patients with a predicted risk of more than 0.121 were categorized into the high-risk group.')
+st.markdown('The model was developed based on the ensembling technique with the Baier score of 0.097 and AUC of 0.814 (95% CI: 0.739-0.889). According to the best cut-off value, patients with a predicted risk of less than 0.100 were categorized into the low-risk group, while patients with a predicted risk of more than 0.100 were categorized into the high-risk group.')
