@@ -4,7 +4,7 @@ import joblib as jl
 import pandas as pd
 import streamlit as st
 
-st.header("Prediction of persistent critical illness among critically ill patients with extremital and pelvic fracture using machine learning")
+st.header("A web-based application for predicting persistent critical illness among ICU orthopaedic trauma patients using ensemble machine learning")
 st.sidebar.title("Selection of Parameters")
 st.sidebar.markdown("Picking up parameters")
 
