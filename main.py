@@ -8,6 +8,11 @@ st.header("A web-based application for predicting persistent critical illness am
 st.sidebar.title("Selection of Parameters")
 st.sidebar.markdown("Picking up parameters")
 
+Pelvic_fractrue = st.sidebar.selectbox("Pelvic fractrue", ("No", "Closed", "Open"))
+Ventilation = st.sidebar.selectbox("Mechanical ventilation", ("No", "Yes"))
+Respiratory_failure = st.sidebar.selectbox("Respiratory failure", ("No", "Yes"))
+Pneumonia = st.sidebar.selectbox("Pneumonia", ("No", "Yes"))
+Sepsis = st.sidebar.selectbox("Sepsis", ("No", "Yes"))
 Heart_rate = st.sidebar.slider("Heart rate (Beats per minute)", 45, 135)
 Respiratory_rate = st.sidebar.slider("Respiratory rate (Beats per minute)", 10, 40)
 Albumin = st.sidebar.slider("Albumin (g/dL)", 1.00, 6.00)
@@ -17,18 +22,13 @@ Hematocrit = st.sidebar.slider("Hematocrit (%)", 25.00, 45.00)
 OASIS = st.sidebar.slider("OASIS",  10, 60)
 SAPSII = st.sidebar.slider("SAPSII", 10, 60)
 SOFA = st.sidebar.slider("SOFA", 0, 20)
-Pelvic_fractrue = st.sidebar.selectbox("Pelvic fractrue", ("No", "Closed", "Open"))
-Ventilation = st.sidebar.selectbox("Mechanical ventilation", ("No", "Yes"))
-Respiratory_failure = st.sidebar.selectbox("Respiratory failure", ("No", "Yes"))
-Pneumonia = st.sidebar.selectbox("Pneumonia", ("No", "Yes"))
-Sepsis = st.sidebar.selectbox("Sepsis", ("No", "Yes"))
 
 if st.button("Submit"):
-    ensemble_clf = jl.load("ensemble_clf_final_round.pkl")
-    x = pd.DataFrame([[Heart_rate, Respiratory_rate, Albumin, Glucose, Calcium, Hematocrit, OASIS,
-                              SAPSII, SOFA, Pelvic_fractrue, Ventilation, Respiratory_failure, Pneumonia, Sepsis]],
-                     columns=["Heartrate", "Respiratoryrate", "Albumin", "Glucose", "Calcium", "Hematocrit", "OASIS",
-                              "SAPSII", "SOFA", "Pelvicfractrue", "Ventilation", "Respiratoryfailure", "Pneumonia", "Sepsis"])
+    ensemble_clf = jl.load("Xgbc_clf_final_round.pkl")
+    x = pd.DataFrame([[Pelvic_fractrue, Ventilation, Respiratory_failure, Pneumonia, Sepsis, Heart_rate, Respiratory_rate, Albumin, Glucose, Calcium, Hematocrit, OASIS,
+                              SAPSII, SOFA]],
+                     columns=["Pelvicfractrue", "Ventilation", "Respiratoryfailure", "Pneumonia", "Sepsis", "Heartrate", "Respiratoryrate", "Albumin", "Glucose", "Calcium", "Hematocrit", "OASIS",
+                              "SAPSII", "SOFA"])
 
     x = x.replace(["No", "Yes"], [0, 1])
     x = x.replace(["No", "Closed", "Open"], [0, 1, 2])
