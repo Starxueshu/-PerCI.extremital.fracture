@@ -24,7 +24,7 @@ SAPSII = st.sidebar.slider("SAPSII", 10, 60)
 SOFA = st.sidebar.slider("SOFA", 0, 20)
 
 if st.button("Submit"):
-    ensemble_clf = jl.load("Xgbc_clf_final_round.pkl")
+    Xgbc_clf = jl.load("Xgbc_clf_final_round.pkl")
     x = pd.DataFrame([[Pelvic_fractrue, Ventilation, Respiratory_failure, Pneumonia, Sepsis, Heart_rate, Respiratory_rate, Albumin, Glucose, Calcium, Hematocrit, OASIS,
                               SAPSII, SOFA]],
                      columns=["Pelvicfractrue", "Ventilation", "Respiratoryfailure", "Pneumonia", "Sepsis", "Heartrate", "Respiratoryrate", "Albumin", "Glucose", "Calcium", "Hematocrit", "OASIS",
@@ -34,7 +34,7 @@ if st.button("Submit"):
     x = x.replace(["No", "Closed", "Open"], [0, 1, 2])
 
     # Get prediction
-    prediction = ensemble_clf.predict_proba(x)[0, 1]
+    prediction = Xgbc_clf.predict_proba(x)[0, 1]
         # Output prediction
     st.text(f"Probability of developing PerCI: {'{:.2%}'.format(round(prediction, 5))}")
     if prediction < 0.100:
